@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private int diamond;
     //체내 미세먼지 수
     private float fineDustLevel;
+    //이산화탄소 수
+    private float co2Level;
     //최대 체내 미세먼지 
     private int maxFineDustLevel;
     //밖에서 머물 수 있는 시간
@@ -42,6 +44,9 @@ public class GameManager : MonoBehaviour
         TVController.WatchReward += WatchReward;
         BedController.SleepReward += SleepReward;
         BedController.Sleep += Sleep;
+        WaterController.DrinkReward += DrinkReward;
+        WashController.WashReward += WashReward;
+        WindowController.VentialationReward += VentialationReward;
 
         StartCoroutine(IncreseFineDustLevel());
         StartCoroutine(IncreseCoin());
@@ -50,14 +55,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void Ventialation()
-    {
-    }
-
-    public void Wash()
-    {
     }
 
     public void CheckMask(MaskState newMaskState)
@@ -81,13 +78,44 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Drink()
+    public void VentialationReward()
     {
+        Debug.Log("Ventialation Reward!");
+        co2Level = 0;
+        checkOxygen = true;
+        fineDustLevel += 20;
+        coin += 100;
+        StartCoroutine(IncreaseCo2());
+    }
+
+
+    public void WashReward()
+    {
+        Debug.Log("Washed Reward!");
+        if(checkCleansing)
+        {
+            coin += 120;
+            fineDustLevel -= 30;
+        }
+        else
+        {
+            coin += 100;
+            fineDustLevel -= 10;
+        }
+
+        if (fineDustLevel < 0)
+            fineDustLevel = 0;
+    }
+
+    public void DrinkReward()
+    {
+        Debug.Log("Drinked Reward!");
+        coin += 100;
     }
 
     public void WatchReward()
     {
-        Debug.Log("Watching Reward!");
+        Debug.Log("Watched Reward!");
         coin += 100;
     }
 
@@ -98,6 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void SleepReward()
     {
+        Debug.Log("Slept Reward!");
         isSleeping = false;
         coin += 500;
     }
@@ -138,6 +167,21 @@ public class GameManager : MonoBehaviour
 
             Debug.Log("coin : " + coin + " FineDustLevel : " + fineDustLevel);
             yield return new WaitForSeconds(coinCheckTime);
+        }
+    }
+
+    IEnumerator IncreaseCo2()
+    {
+        while (true)
+        {
+            co2Level += Time.deltaTime;
+            if(co2Level>100)
+            {
+                Debug.Log("co2 Max");
+                checkOxygen = false;
+                break;
+            }
+            yield return null;
         }
     }
 }

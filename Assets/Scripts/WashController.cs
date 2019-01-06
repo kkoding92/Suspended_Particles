@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TVController : ViewController
+public class WashController : ViewController
 {
     public CoolDown coolDown;
     private string title;
     private string message;
 
     public delegate void RewardEvent();
-    public static event RewardEvent WatchReward;
+    public static event RewardEvent WashReward;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class TVController : ViewController
 
         if (coolDown.isCoolTime)
         {
-            message = "정말로 TV를 시청하시겠습니까?";
+            message = "샤워를 시키겠습니까?";
 
             AlertViewController.Show(title, message, new AlertViewOptions
             {
@@ -47,7 +47,7 @@ public class TVController : ViewController
         }
         else
         {
-            message = "지금은 방송 시간이 아닙니다.";
+            message = "아직 몸에서 향기가 난다";
             AlertViewController.Show(title, message);
         }
     }
@@ -72,7 +72,7 @@ public class TVController : ViewController
     private void ShowContents()
     {
         //TV를 다 보면 보상 및 CoolTime 체크
-        WatchReward();
+        WashReward();
         StartCoroutine(CheckCoolTime(coolDown.coolTime));
     }
 

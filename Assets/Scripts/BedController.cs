@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BedController : MonoBehaviour
+public class BedController : ViewController
 {
     public GameObject Mask;
     public CoolDown coolDown;

@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 299531193}
   - component: {fileID: 299531192}
   - component: {fileID: 299531191}
+  - component: {fileID: 299531195}
   m_Layer: 0
   m_Name: Window
   m_TagString: Untagged
@@ -370,12 +371,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 299531190}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.199999, y: 42, z: 39.7}
+  m_LocalPosition: {x: 16.199999, y: 57.8, z: 39.7}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &299531195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299531190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd06fc4524aed04291c381a6c5c0e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolDown:
+    coolDownState: 2
+    coolTime: 10
+    isCoolTime: 0
+    isSleeping: 0
 --- !u!1 &300094227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,6 +1090,7 @@ GameObject:
   - component: {fileID: 1543046247}
   - component: {fileID: 1543046246}
   - component: {fileID: 1543046245}
+  - component: {fileID: 1543046249}
   m_Layer: 0
   m_Name: Wash
   m_TagString: Untagged
@@ -1145,12 +1164,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543046244}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.9, y: 62.1, z: 39.7}
+  m_LocalPosition: {x: 31.9, y: 41.8, z: 39.7}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1543046249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543046244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e0a955a674c3b9489ce4aeeff658a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolDown:
+    coolDownState: 3
+    coolTime: 10
+    isCoolTime: 0
+    isSleeping: 0
 --- !u!1 &1652439646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,6 +1376,7 @@ GameObject:
   - component: {fileID: 2120063252}
   - component: {fileID: 2120063251}
   - component: {fileID: 2120063250}
+  - component: {fileID: 2120063254}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -1413,9 +1450,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120063249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5999994, y: 42, z: 39.7}
+  m_LocalPosition: {x: 0.5999994, y: 57.6, z: 39.7}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120063254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120063249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac340f5a859c424f87820b5300f3107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coolDown:
+    coolDownState: 4
+    coolTime: 10
+    isCoolTime: 0
+    isSleeping: 0
