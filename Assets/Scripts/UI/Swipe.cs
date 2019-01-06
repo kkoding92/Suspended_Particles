@@ -7,7 +7,7 @@ public class Swipe : TouchLogicV2
     public float rotateSpeed = 100.0f;
     public int invertPitch = 1;
     public Transform player;
-    public Transform radar;
+    //public Transform radar;
     private float pYaw = 0.0f;
     private Vector3 oRotation;
 

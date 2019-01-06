@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     //특정 미세먼지 증가시간 
     [SerializeField] private float fineDustCheckTime = 10;
     //특정 코인 증가시간 
-    [SerializeField] private float coinCheckTime = 20;
+    [SerializeField] private float coinCheckTime = 15;
 
     //클렌징 보유 여부
     private bool checkCleansing = false;
@@ -33,9 +33,16 @@ public class GameManager : MonoBehaviour
     private bool checkAirCleaner = false;
     //창문이 열렸는지 여부
     private bool isOpen = true;
+    //잠들어 있는지 여부
+    private bool isSleeping = false;
 
     void Start()
     {
+        //이벤트 등록
+        TVController.WatchReward += WatchReward;
+        BedController.SleepReward += SleepReward;
+        BedController.Sleep += Sleep;
+
         StartCoroutine(IncreseFineDustLevel());
         StartCoroutine(IncreseCoin());
     }
@@ -78,28 +85,45 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    public void Watch()
+    public void WatchReward()
     {
+        Debug.Log("Watching Reward!");
+        coin += 100;
+    }
+
+    public void Sleep()
+    {
+        isSleeping = true;
+    }
+
+    public void SleepReward()
+    {
+        isSleeping = false;
+        coin += 500;
     }
 
     //미세먼지 증가루틴 
     IEnumerator IncreseFineDustLevel()
     {
         while (true) {
-            if (isOpen)
+            if (!isSleeping)
             {
-                if (checkFilter)
-                    fineDustLevel += 2;
+                if (isOpen)
+                {
+                    if (checkFilter)
+                        fineDustLevel += 2;
+                    else
+                        fineDustLevel += 5;
+                }
                 else
-                    fineDustLevel += 5;
-            }
-            else
-                fineDustLevel++;
+                    fineDustLevel++;
 
-            if(checkOxygen)
-                yield return new WaitForSeconds(fineDustCheckTime);
-            else
-                yield return new WaitForSeconds(fineDustCheckTime*0.5f);
+                if (checkOxygen)
+                    yield return new WaitForSeconds(fineDustCheckTime);
+                else
+                    yield return new WaitForSeconds(fineDustCheckTime * 0.5f);
+            }
+            yield return null;
         }
     }
 
