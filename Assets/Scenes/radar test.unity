@@ -284,6 +284,7 @@ MonoBehaviour:
     coolTime: 10
     isCoolTime: 0
     isSleeping: 0
+    isAlertView: 0
   sleepTime: 10
 --- !u!1 &299531190
 GameObject:
@@ -394,6 +395,7 @@ MonoBehaviour:
     coolTime: 10
     isCoolTime: 0
     isSleeping: 0
+    isAlertView: 0
 --- !u!1 &300094227
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,6 +951,7 @@ MonoBehaviour:
     coolTime: 10
     isCoolTime: 0
     isSleeping: 0
+    isAlertView: 0
 --- !u!65 &1424844454
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1031,6 +1034,10 @@ PrefabInstance:
     - target: {fileID: 100002, guid: c9f357fd918ea0d45a2b56042f4dcabf, type: 3}
       propertyPath: m_Name
       value: BG
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: c9f357fd918ea0d45a2b56042f4dcabf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: c9f357fd918ea0d45a2b56042f4dcabf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1187,6 +1194,7 @@ MonoBehaviour:
     coolTime: 10
     isCoolTime: 0
     isSleeping: 0
+    isAlertView: 0
 --- !u!1 &1652439646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,3 +1481,4 @@ MonoBehaviour:
     coolTime: 10
     isCoolTime: 0
     isSleeping: 0
+    isAlertView: 0

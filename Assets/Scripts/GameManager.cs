@@ -7,7 +7,7 @@ public enum MaskState { basic=0, KF80, KF94, KF99 }
 public class GameManager : MonoBehaviour
 {
     //보유한 코인 수
-    private ulong coin = 0;
+    private int coin;
     //보유한 다이아몬드 수
     private int diamond;
     //체내 미세먼지 수
@@ -18,25 +18,31 @@ public class GameManager : MonoBehaviour
     private int maxFineDustLevel;
     //밖에서 머물 수 있는 시간
     private int stayTime = 60;
-    //마스크 보유 현환
-    private MaskState maskState = MaskState.basic;
     //특정 미세먼지 증가시간 
     [SerializeField] private float fineDustCheckTime = 10;
     //특정 코인 증가시간 
     [SerializeField] private float coinCheckTime = 15;
-
+    
     //클렌징 보유 여부
-    private bool checkCleansing = false;
+    [HideInInspector] public bool checkCleansing = false;
+    //공기청정기 유무
+    [HideInInspector] public bool checkAirCleaner = false;
+    //야자수 보유 유무
+    [HideInInspector] public bool checkPalmTree = false;
+    //Stuckyi 보유 유무
+    [HideInInspector] public bool checkStuckyi = false;
+    //마스크 보유 현환
+    [HideInInspector] public MaskState maskState = MaskState.basic;
     //방충망 필터 보유 여부
     private bool checkFilter = false;
     //방안 내 산소 유무
     private bool checkOxygen = true;
-    //공기청정기 유무
-    private bool checkAirCleaner = false;
     //창문이 열렸는지 여부
     private bool isOpen = true;
     //잠들어 있는지 여부
     private bool isSleeping = false;
+
+    public int Coin { get => coin; set => coin = value; }
 
     void Start()
     {
@@ -47,6 +53,7 @@ public class GameManager : MonoBehaviour
         WaterController.DrinkReward += DrinkReward;
         WashController.WashReward += WashReward;
         WindowController.VentialationReward += VentialationReward;
+        StoreController.StoreReward += StoreReward;
 
         StartCoroutine(IncreseFineDustLevel());
         StartCoroutine(IncreseCoin());
@@ -57,7 +64,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void CheckMask(MaskState newMaskState)
+    private void SetMask(MaskState newMaskState)
     {
         maskState = newMaskState;
 
@@ -84,22 +91,21 @@ public class GameManager : MonoBehaviour
         co2Level = 0;
         checkOxygen = true;
         fineDustLevel += 20;
-        coin += 100;
+        Coin += 100;
         StartCoroutine(IncreaseCo2());
     }
-
 
     public void WashReward()
     {
         Debug.Log("Washed Reward!");
         if(checkCleansing)
         {
-            coin += 120;
+            Coin += 120;
             fineDustLevel -= 30;
         }
         else
         {
-            coin += 100;
+            Coin += 100;
             fineDustLevel -= 10;
         }
 
@@ -110,13 +116,13 @@ public class GameManager : MonoBehaviour
     public void DrinkReward()
     {
         Debug.Log("Drinked Reward!");
-        coin += 100;
+        Coin += 100;
     }
 
     public void WatchReward()
     {
         Debug.Log("Watched Reward!");
-        coin += 100;
+        Coin += 100;
     }
 
     public void Sleep()
@@ -128,7 +134,38 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Slept Reward!");
         isSleeping = false;
-        coin += 500;
+        Coin += 500;
+    }
+
+    public void StoreReward(Item item, int price)
+    {
+        switch (item)
+        {
+            case Item.Cleansing:
+                checkCleansing = true;
+                break;
+            case Item.Stuckyi:
+                checkStuckyi = true;
+                break;
+            case Item.PalmTree:
+                checkPalmTree = true;
+                break;
+            case Item.AirCleaner:
+                checkAirCleaner = true;
+                break;
+            case Item.KF80:
+                SetMask(MaskState.KF80);
+                break;
+            case Item.KF94:
+                SetMask(MaskState.KF94);
+                break;
+            case Item.KF99:
+                SetMask(MaskState.KF99);
+                break;
+            case Item.SkillBook:
+                break;
+        }
+        Coin -= price;
     }
 
     //미세먼지 증가루틴 
@@ -161,11 +198,11 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             if (checkAirCleaner)
-                coin += 5;
+                Coin += 5;
             else
-                coin++;
+                Coin++;
 
-            Debug.Log("coin : " + coin + " FineDustLevel : " + fineDustLevel);
+            Debug.Log("coin : " + Coin + " FineDustLevel : " + fineDustLevel);
             yield return new WaitForSeconds(coinCheckTime);
         }
     }
