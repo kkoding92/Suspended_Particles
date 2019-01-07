@@ -15,14 +15,17 @@ public class WaterController : ViewController
     {
         BedController.Sleep += Sleep;
         BedController.SleepReward += SleepReward;
+        AlertViewController.OnEvent += OnEvent;
+        AlertViewController.OffEvent += OffEvent;
 
+        coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
         title = "알림";
     }
 
     private void OnMouseDown()
     {
-        if (coolDown.isSleeping)
+        if (coolDown.isSleeping || coolDown.isAlertView)
             return;
 
         if (coolDown.isCoolTime)
@@ -52,16 +55,6 @@ public class WaterController : ViewController
         }
     }
 
-    public void Sleep()
-    {
-        coolDown.isSleeping = true;
-    }
-
-    public void SleepReward()
-    {
-        coolDown.isSleeping = false;
-    }
-
     private void PlayAnimation()
     {
         //ok시 보여줄 콘텐츠 재생
@@ -83,4 +76,25 @@ public class WaterController : ViewController
         yield return new WaitForSeconds(time);
         coolDown.isCoolTime = true;
     }
+
+    public void OnEvent()
+    {
+        coolDown.isAlertView = true;
+    }
+
+    public void OffEvent()
+    {
+        coolDown.isAlertView = false;
+    }
+
+    public void Sleep()
+    {
+        coolDown.isSleeping = true;
+    }
+
+    public void SleepReward()
+    {
+        coolDown.isSleeping = false;
+    }
+
 }

@@ -16,13 +16,17 @@ public class BedController : ViewController
 
     private void Start()
     {
+        AlertViewController.OnEvent += OnEvent;
+        AlertViewController.OffEvent += OffEvent;
+
+        coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
         title = "알림";
     }
 
     private void OnMouseDown()
     {
-        if (coolDown.isSleeping)
+        if (coolDown.isSleeping || coolDown.isAlertView)
             return;
 
         if (coolDown.isCoolTime)
@@ -90,5 +94,15 @@ public class BedController : ViewController
     {
         yield return new WaitForSeconds(time);
         WakeUp();
+    }
+
+    public void OnEvent()
+    {
+        coolDown.isAlertView = true;
+    }
+
+    public void OffEvent()
+    {
+        coolDown.isAlertView = false;
     }
 }

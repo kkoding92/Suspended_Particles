@@ -19,5 +19,7 @@ public class CoolDown
     public bool isCoolTime;
     [HideInInspector]
     public bool isSleeping;
+    [HideInInspector]
+    public bool isAlertView;
 }
 

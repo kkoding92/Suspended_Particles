@@ -24,6 +24,10 @@ public class AlertViewController : ViewController
     private System.Action cancelButtonDelegate;     //취소 버튼을 눌렀을 때 실행되는 델리게이트 저장
     private System.Action okButtonDelegate;         //OK 버튼을 눌렀을 때 실행되는 델리게이트 저장
 
+    public delegate void AlertViewEvent();
+    public static event AlertViewEvent OnEvent;
+    public static event AlertViewEvent OffEvent;
+
     //알림 뷰를 표시하는 static 메서드
     public static AlertViewController Show(string title, string message, AlertViewOptions options = null)
     {
@@ -36,6 +40,7 @@ public class AlertViewController : ViewController
         AlertViewController alertView = obj.GetComponent<AlertViewController>();
         alertView.UpdateContent(title, message, options);
 
+        OnEvent();
         return alertView;
     }
 
@@ -76,6 +81,7 @@ public class AlertViewController : ViewController
     public void Dismiss()
     {
         Destroy(gameObject);
+        OffEvent();
     }
 
     //취소 버튼을 눌렀을 때 호출되는 메서드
