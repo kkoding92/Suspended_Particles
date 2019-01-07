@@ -28,16 +28,17 @@ public class StoreController : MonoBehaviour
     public GameManager gm;
     public GameObject UICam;
     public GameObject previewObj;
+    public GameObject skillUiObj;
 
     private string message;
     private bool isEvent;
-
     public delegate void StoreRewardEvent(Item item, int price);
     public static event StoreRewardEvent StoreReward;
 
     private void Start()
     {
         isEvent = false;
+
         StoreAlertViewController.OnEvent += OnEvent;
         StoreAlertViewController.OffEvent += OffEvent;
 
@@ -45,7 +46,7 @@ public class StoreController : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (isEvent)
+        if (isEvent || skillUiObj.activeSelf)
             return;
 
         SetMessage();
@@ -115,8 +116,7 @@ public class StoreController : MonoBehaviour
                     okButtonTitle = "네",
                     okButtonDelegate = () =>
                     {
-                        //dododododododoododoodododoododoodododoododoodododod
-                        //sdssdsdsdssdssdsdsdsdsd
+                        skillUiObj.SetActive(true);
                     },
                 });
                 break;
@@ -171,6 +171,11 @@ public class StoreController : MonoBehaviour
         isEvent = false;
         UICam.SetActive(false);
         previewObj.SetActive(false);
+    }
+
+    public void OnClickXBtn()
+    {
+        skillUiObj.SetActive(false);
     }
 
     private void CallStoreAlertView()

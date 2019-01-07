@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
     private int maxFineDustLevel;
     //밖에서 머물 수 있는 시간
     private int stayTime = 60;
+    //차량2부제 스킬 갯수
+    private int carSkillCount;
+    //바람 스킬 갯수
+    private int windSkillCount;
+    //비 스킬 갯수
+    private int rainSkillCount;
     //특정 미세먼지 증가시간 
     [SerializeField] private float fineDustCheckTime = 10;
     //특정 코인 증가시간 
@@ -54,6 +60,7 @@ public class GameManager : MonoBehaviour
         WashController.WashReward += WashReward;
         WindowController.VentialationReward += VentialationReward;
         StoreController.StoreReward += StoreReward;
+        SkillController.SkillReward += SkillReward;
 
         StartCoroutine(IncreseFineDustLevel());
         StartCoroutine(IncreseCoin());
@@ -162,10 +169,26 @@ public class GameManager : MonoBehaviour
             case Item.KF99:
                 SetMask(MaskState.KF99);
                 break;
-            case Item.SkillBook:
-                break;
         }
         Coin -= price;
+    }
+
+    public void SkillReward(Skill_Item item, int price)
+    {
+        switch (item)
+        {
+            case Skill_Item.car:
+                carSkillCount++;
+                break;
+            case Skill_Item.rain:
+                rainSkillCount++;
+                break;
+            case Skill_Item.wind:
+                windSkillCount++;
+                break;
+        }
+
+        coin -= price;
     }
 
     //미세먼지 증가루틴 
