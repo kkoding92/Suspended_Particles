@@ -26,17 +26,42 @@ public class SkillController : MonoBehaviour
         switch (skill.skill_item)
         {
             case Skill_Item.car:
-                message = "전체 미세먼지의 20%를 감소시켜 줍니다. 구매 하시겠습니까?";
+                if(gm.carSkillCount == 0)
+                {
+                    message = "전체 미세먼지의 20%를 감소시켜 줍니다. 구매 하시겠습니까?";
+                    CallAlertView();
+                }
+                else
+                {
+                    message = "이미 보유한 스킬입니다";
+                    AlertViewController.Show(skill.title, message);
+                }
                 break;
             case Skill_Item.rain:
-                message = "전체 미세먼지의 20%를 감소시켜 줍니다. 구매 하시겠습니까?";
+                if (gm.rainSkillCount == 0)
+                {
+                    message = "전체 미세먼지의 20%를 감소시켜 줍니다. 구매 하시겠습니까?";
+                    CallAlertView();
+                }
+                else
+                {
+                    message = "이미 보유한 스킬입니다";
+                    AlertViewController.Show(skill.title, message);
+                }
                 break;
             case Skill_Item.wind:
-                message = "전체 미세먼지의 20%를 감소시켜 줍니다. 구매 하시겠습니까?";
+                if (gm.windSkillCount == 0)
+                {
+                    message = "전체 미세먼지의 20%를 감소시켜 줍니다. 구매 하시겠습니까?";
+                    CallAlertView();
+                }
+                else
+                {
+                    message = "이미 보유한 스킬입니다";
+                    AlertViewController.Show(skill.title, message);
+                }
                 break;
         }
-
-        CallAlertView();
     }
 
     private void CallAlertView()

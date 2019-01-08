@@ -18,17 +18,17 @@ public class GameManager : MonoBehaviour
     private int maxFineDustLevel;
     //밖에서 머물 수 있는 시간
     private int stayTime = 60;
-    //차량2부제 스킬 갯수
-    private int carSkillCount;
-    //바람 스킬 갯수
-    private int windSkillCount;
-    //비 스킬 갯수
-    private int rainSkillCount;
     //특정 미세먼지 증가시간 
     [SerializeField] private float fineDustCheckTime = 10;
     //특정 코인 증가시간 
     [SerializeField] private float coinCheckTime = 15;
-    
+
+    //차량2부제 스킬 갯수
+    [HideInInspector] public int carSkillCount;
+    //바람 스킬 갯수
+    [HideInInspector] public int windSkillCount;
+    //비 스킬 갯수
+    [HideInInspector] public int rainSkillCount;
     //클렌징 보유 여부
     [HideInInspector] public bool checkCleansing = false;
     //공기청정기 유무
