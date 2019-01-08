@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BedController : ViewController
+public class PortalController : MonoBehaviour
 {
     public CoolDown coolDown;
-    public float sleepTime;
     private string title;
     private string message;
 
-    public delegate void RewardEvent();
-    public static event RewardEvent SleepReward;
-    public static event RewardEvent Sleep;
-
     private void Start()
     {
+        BedController.Sleep += Sleep;
+        BedController.SleepReward += SleepReward;
         AlertViewController.OnEvent += OnEvent;
         AlertViewController.OffEvent += OffEvent;
 
@@ -30,67 +27,56 @@ public class BedController : ViewController
 
         if (coolDown.isCoolTime)
         {
-            message = "정말로 재우겠습니까?";
+            message = "포탈을 통해 밖으로 미세먼지와 싸우거나 상점을 갈 수 있습니다. 포탈을 작동 시키겠습니까?";
 
             AlertViewController.Show(title, message, new AlertViewOptions
             {
                 //취소 버튼의 타이틀과 버튼을 눌렀을 때 실행되는 델리게이트를 설정한다.
-                cancelButtonTitle = "아니요",
+                cancelButtonTitle = "취소",
                 cancelButtonDelegate = () =>
                 {
                 },
 
                 //OK 버튼의 타이틀과 버튼을 눌렀을 때 실행되는 델리게이트를 설정한다.
-                okButtonTitle = "네",
+                okButtonTitle = "출발",
                 okButtonDelegate = () =>
                 {
-                    //ok시 보여줄 콘텐츠 재생
-                    ShowAnim();
+                    CheckDestination();
                 },
             });
         }
         else
         {
-            message = "지금은 졸리지 않습니다.";
+            message = "포탈을 열기 위해서는 에너지가 더 필요합니다.";
             AlertViewController.Show(title, message);
         }
     }
 
-    //침대까지 걷기 애니메이션 재생함수
-    private void ShowAnim()
+    private void CheckDestination()
     {
-        GoToSleep();
+        message = "이동하고자 하는 장소를 입력하세요";
+        AlertViewController.Show(title, message, new AlertViewOptions
+        {
+            //취소 버튼의 타이틀과 버튼을 눌렀을 때 실행되는 델리게이트를 설정한다.
+            cancelButtonTitle = "지구",
+            cancelButtonDelegate = () =>
+            {
+            },
+
+            //OK 버튼의 타이틀과 버튼을 눌렀을 때 실행되는 델리게이트를 설정한다.
+            okButtonTitle = "상점",
+            okButtonDelegate = () =>
+            {
+            },
+        });
     }
 
-    //잠자는 처리 함수
-    private void GoToSleep()
-    {
-        coolDown.isSleeping = true;
-        Sleep();
-        StartCoroutine(SleepTimeCheck(sleepTime));
-    }
-
-    private void WakeUp()
-    {
-        //TV를 다 보면 보상 및 CoolTime 체크
-        coolDown.isSleeping = false;
-        SleepReward();
-        StartCoroutine(CheckCoolTime(coolDown.coolTime));
-    }
-
-    //CoolTime 체크 코루틴
+    //CoolTime 체크함수
     IEnumerator CheckCoolTime(float time)
     {
         coolDown.isCoolTime = false;
         yield return new WaitForSeconds(time);
         coolDown.isCoolTime = true;
-    }
-
-    //SleepTime 체크 코루틴
-    IEnumerator SleepTimeCheck(float time)
-    {
-        yield return new WaitForSeconds(time);
-        WakeUp();
     }
 
     public void OnEvent()
@@ -101,5 +87,15 @@ public class BedController : ViewController
     public void OffEvent()
     {
         coolDown.isAlertView = false;
+    }
+
+    public void Sleep()
+    {
+        coolDown.isSleeping = true;
+    }
+
+    public void SleepReward()
+    {
+        coolDown.isSleeping = false;
     }
 }

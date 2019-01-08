@@ -9,7 +9,8 @@ public enum CoolDownState
     VentialationCoolTime,
     WashCoolTime,
     DrinkCoolTime,
-    GrowTime
+    GrowTime,
+    PortalTime,
 }
 
 [System.Serializable]

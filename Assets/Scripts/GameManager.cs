@@ -8,6 +8,13 @@ public enum StuckyiState { None=0, Level1, Level2 }
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject cleansingObj;
+    public GameObject airCleanerObj;
+    public GameObject palmOrigin;
+    public GameObject stuckyOrigin;
+    public GameObject[] palmTreeObjs;
+    public GameObject[] stuckyiObjs;
+
     //보유한 코인 수
     private int coin;
     //보유한 다이아몬드 수
@@ -73,13 +80,11 @@ public class GameManager : MonoBehaviour
         SkillController.SkillReward += SkillReward;
         PlantController.GrowReward += GrowReward;
 
+        cleansingObj.SetActive(false);
+        airCleanerObj.SetActive(false);
+
         StartCoroutine(IncreseFineDustLevel());
         StartCoroutine(IncreseCoin());
-    }
-
-    void Update()
-    {
-        
     }
 
     private void SetMask(MaskState newMaskState)
@@ -161,15 +166,23 @@ public class GameManager : MonoBehaviour
         {
             case Item.Cleansing:
                 checkCleansing = true;
+                cleansingObj.SetActive(true);
                 break;
             case Item.Stuckyi:
                 checkStuckyi = true;
+                stuckyiObjs[0].SetActive(true);
+                stuckyOrigin.SetActive(true);
+                stuckyiState = StuckyiState.Level1;
                 break;
             case Item.PalmTree:
                 checkPalmTree = true;
+                palmOrigin.SetActive(true);
+                palmTreeObjs[0].SetActive(true);
+                palmState = PalmState.Level1;
                 break;
             case Item.AirCleaner:
                 checkAirCleaner = true;
+                airCleanerObj.SetActive(true);
                 break;
             case Item.KF80:
                 SetMask(MaskState.KF80);
@@ -209,12 +222,16 @@ public class GameManager : MonoBehaviour
             {
                 coin += 50;
                 palmGrowCount = 0;
+                palmTreeObjs[0].SetActive(false);
+                palmTreeObjs[1].SetActive(true);
                 palmState = PalmState.Level2;
             }
             else if(palmState == PalmState.Level2)
             {
                 coin += 50;
                 palmGrowCount = 0;
+                palmTreeObjs[1].SetActive(false);
+                palmTreeObjs[2].SetActive(true);
                 palmState = PalmState.Level3;
             }
         }
@@ -224,6 +241,8 @@ public class GameManager : MonoBehaviour
             {
                 coin += 50;
                 stuckyiGrowCount = 0;
+                stuckyiObjs[0].SetActive(false);
+                stuckyiObjs[1].SetActive(false);
                 stuckyiState = StuckyiState.Level2;
             }
         }
