@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum MaskState { basic=0, KF80, KF94, KF99 }
+public enum PalmState { None=0, Level1, Level2, Level3 }
+public enum StuckyiState { None=0, Level1, Level2 }
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +25,14 @@ public class GameManager : MonoBehaviour
     //특정 코인 증가시간 
     [SerializeField] private float coinCheckTime = 15;
 
+    //야자수 상태
+    [HideInInspector] public PalmState palmState = PalmState.None;
+    //야자수 자라는 조건
+    [HideInInspector] public int palmGrowCount=0;
+    //스투키 상태
+    [HideInInspector] public StuckyiState stuckyiState = StuckyiState.None;
+    //스투키 자라는 조건
+    [HideInInspector] public int stuckyiGrowCount=0;
     //차량2부제 스킬 갯수
     [HideInInspector] public int carSkillCount;
     //바람 스킬 갯수
@@ -61,6 +71,7 @@ public class GameManager : MonoBehaviour
         WindowController.VentialationReward += VentialationReward;
         StoreController.StoreReward += StoreReward;
         SkillController.SkillReward += SkillReward;
+        PlantController.GrowReward += GrowReward;
 
         StartCoroutine(IncreseFineDustLevel());
         StartCoroutine(IncreseCoin());
@@ -187,8 +198,35 @@ public class GameManager : MonoBehaviour
                 windSkillCount++;
                 break;
         }
-
         coin -= price;
+    }
+
+    public void GrowReward(Plant plant)
+    {
+        if(plant == Plant.PalmTree)
+        {
+            if(palmState == PalmState.Level1)
+            {
+                coin += 50;
+                palmGrowCount = 0;
+                palmState = PalmState.Level2;
+            }
+            else if(palmState == PalmState.Level2)
+            {
+                coin += 50;
+                palmGrowCount = 0;
+                palmState = PalmState.Level3;
+            }
+        }
+        else if(plant == Plant.Stuckyi)
+        {
+            if (stuckyiState == StuckyiState.Level1)
+            {
+                coin += 50;
+                stuckyiGrowCount = 0;
+                stuckyiState = StuckyiState.Level2;
+            }
+        }
     }
 
     //미세먼지 증가루틴 
