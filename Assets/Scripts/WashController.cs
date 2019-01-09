@@ -5,6 +5,9 @@ using UnityEngine;
 public class WashController : ViewController
 {
     public CoolDown coolDown;
+    public GameObject video;
+    public Transform resetPoint;
+
     private string title;
     private string message;
 
@@ -17,7 +20,9 @@ public class WashController : ViewController
         BedController.SleepReward += SleepReward;
         AlertViewController.OnEvent += OnEvent;
         AlertViewController.OffEvent += OffEvent;
+        PlayerFSM.Arrive += Arrive;
 
+        video.SetActive(false);
         coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
         title = "알림";
@@ -44,7 +49,7 @@ public class WashController : ViewController
                 okButtonTitle = "네",
                 okButtonDelegate = () =>
                 {
-                    PlayAnimation();
+                    PlayerFSM.instance.SetDestination(coolDown.coolDownState);
                 },
             });
         }
@@ -55,18 +60,24 @@ public class WashController : ViewController
         }
     }
 
-    private void PlayAnimation()
+    public void Arrive()
     {
-        //ok시 보여줄 콘텐츠 재생
-        ShowContents();
+        if (coolDown.coolDownState == PlayerFSM.instance.curCoolDownState)
+        {
+            //콘텐츠 재생
+            StartCoroutine(WashVideoPlay());
+        }
     }
 
-    //TV에서 보여줄 콘텐츠 재생함수
-    private void ShowContents()
+    IEnumerator WashVideoPlay()
     {
-        //TV를 다 보면 보상 및 CoolTime 체크
+        video.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        PlayerFSM.instance.TurnObj(resetPoint);
+        yield return new WaitForSeconds(4f);
+        video.SetActive(false);
         WashReward();
-        StartCoroutine(CheckCoolTime(coolDown.coolTime));
+        yield return StartCoroutine(CheckCoolTime(coolDown.coolTime));
     }
 
     //CoolTime 체크함수

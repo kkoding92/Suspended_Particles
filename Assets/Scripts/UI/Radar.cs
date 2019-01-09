@@ -12,17 +12,18 @@ public class RadarObject
 public class Radar : MonoBehaviour
 {
     public Transform playerPos;
-    float mapScale = 2.0f;
+    float mapScale = 13;
 
-    public static List<RadarObject> radarObjects = new List<RadarObject>();
+    public List<RadarObject> radarObjects = new List<RadarObject>();
 
-    public static void RegisterRadarObject(GameObject o, Image i)
+    public  void RegisterRadarObject(GameObject o, Image i)
     {
         Image image = Instantiate(i);
         radarObjects.Add(new RadarObject() { owner = o, icon = image });
+        DrawRadarDots();
     }
 
-    public static void RemoveRadarObject(GameObject o)
+    public void RemoveRadarObject(GameObject o)
     {
         List<RadarObject> newList = new List<RadarObject>();
         for (int i = 0; i < radarObjects.Count; i++)
@@ -50,10 +51,5 @@ public class Radar : MonoBehaviour
             ro.icon.transform.SetParent(this.transform);
             ro.icon.transform.position = new Vector3(radarPos.x, radarPos.z, 0) + this.transform.position;
         }
-    }
-
-    void Update()
-    {
-        DrawRadarDots();
     }
 }

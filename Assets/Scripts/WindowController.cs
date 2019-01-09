@@ -5,6 +5,8 @@ using UnityEngine;
 public class WindowController : ViewController
 {
     public CoolDown coolDown;
+    public Animation ani;
+
     private string title;
     private string message;
 
@@ -17,7 +19,9 @@ public class WindowController : ViewController
         BedController.SleepReward += SleepReward;
         AlertViewController.OnEvent += OnEvent;
         AlertViewController.OffEvent += OffEvent;
+        PlayerFSM.Arrive += Arrive;
 
+        ani.Stop();
         coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
         title = "알림";
@@ -44,7 +48,7 @@ public class WindowController : ViewController
                 okButtonTitle = "네",
                 okButtonDelegate = () =>
                 {
-                    PlayAnimation();
+                    PlayerFSM.instance.SetDestination(coolDown.coolDownState);
                 },
             });
         }
@@ -55,18 +59,23 @@ public class WindowController : ViewController
         }
     }
 
-    private void PlayAnimation()
+    public void Arrive()
     {
-        //ok시 보여줄 콘텐츠 재생
-        ShowContents();
+        if (coolDown.coolDownState == PlayerFSM.instance.curCoolDownState)
+        {
+            //콘텐츠 재생
+            StartCoroutine(OpenWindow());
+        }
     }
-
-    //TV에서 보여줄 콘텐츠 재생함수
-    private void ShowContents()
+    
+    IEnumerator OpenWindow()
     {
-        //TV를 다 보면 보상 및 CoolTime 체크
+        ani.Play();
+        PlayerFSM.instance.TurnObj();
+        yield return new WaitForSeconds(9f);
+        ani.Stop();
         VentialationReward();
-        StartCoroutine(CheckCoolTime(coolDown.coolTime));
+        yield return StartCoroutine(CheckCoolTime(coolDown.coolTime));
     }
 
     //CoolTime 체크함수

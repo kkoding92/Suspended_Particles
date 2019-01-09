@@ -6,14 +6,15 @@ using UnityEngine.UI;
 public class MakeRadarObject : MonoBehaviour
 {
     public Image image;
+    public Radar radar;
 
     void Start()
     {
-        Radar.RegisterRadarObject(this.gameObject, image);
+        radar.RegisterRadarObject(this.gameObject, image);
     }
 
     private void OnDestroy()
     {
-        Radar.RemoveRadarObject(this.gameObject);
+        radar.RemoveRadarObject(this.gameObject);
     }
 }

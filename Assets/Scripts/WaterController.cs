@@ -1,10 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WaterController : ViewController
 {
     public CoolDown coolDown;
+    public GameObject cupObj;
+    public GameObject camObj;
     private string title;
     private string message;
 
@@ -17,7 +18,10 @@ public class WaterController : ViewController
         BedController.SleepReward += SleepReward;
         AlertViewController.OnEvent += OnEvent;
         AlertViewController.OffEvent += OffEvent;
+        PlayerFSM.Arrive += Arrive;
 
+        camObj.SetActive(false);
+        cupObj.SetActive(false);
         coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
         title = "알림";
@@ -44,7 +48,7 @@ public class WaterController : ViewController
                 okButtonTitle = "네",
                 okButtonDelegate = () =>
                 {
-                    PlayAnimation();
+                    PlayerFSM.instance.SetDestination(coolDown.coolDownState);
                 },
             });
         }
@@ -55,20 +59,27 @@ public class WaterController : ViewController
         }
     }
 
-    private void PlayAnimation()
+    public void Arrive()
     {
-        //ok시 보여줄 콘텐츠 재생
-        ShowContents();
+        if (coolDown.coolDownState == PlayerFSM.instance.curCoolDownState)
+        {
+            //콘텐츠 재생
+            StartCoroutine(ShowDrinkWater());
+        }
     }
 
-    //TV에서 보여줄 콘텐츠 재생함수
-    private void ShowContents()
+    IEnumerator ShowDrinkWater()
     {
-        //TV를 다 보면 보상 및 CoolTime 체크
+        cupObj.SetActive(true);
+        camObj.SetActive(true);
+        yield return new WaitForSeconds(6f);
+        cupObj.SetActive(false);
+        PlayerFSM.instance.TurnObj();
+        camObj.SetActive(false);
         DrinkReward();
-        StartCoroutine(CheckCoolTime(coolDown.coolTime));
+        yield return StartCoroutine(CheckCoolTime(coolDown.coolTime));
     }
-
+    
     //CoolTime 체크함수
     IEnumerator CheckCoolTime(float time)
     {

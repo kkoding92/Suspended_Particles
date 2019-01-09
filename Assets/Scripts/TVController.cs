@@ -17,6 +17,7 @@ public class TVController : ViewController
         BedController.SleepReward += SleepReward;
         AlertViewController.OnEvent += OnEvent;
         AlertViewController.OffEvent += OffEvent;
+        PlayerFSM.Arrive += Arrive;
 
         coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
@@ -44,7 +45,7 @@ public class TVController : ViewController
                 okButtonTitle = "네",
                 okButtonDelegate = () =>
                 {
-                    PlayAnimation();
+                    PlayerFSM.instance.SetDestination(coolDown.coolDownState);
                 },
             });
         }
@@ -55,18 +56,16 @@ public class TVController : ViewController
         }
     }
 
-    private void PlayAnimation()
+    public void Arrive()
     {
-        //ok시 보여줄 콘텐츠 재생
-        ShowContents();
-    }
-
-    //TV에서 보여줄 콘텐츠 재생함수
-    private void ShowContents()
-    {
-        //TV를 다 보면 보상 및 CoolTime 체크
-        WatchReward();
-        StartCoroutine(CheckCoolTime(coolDown.coolTime));
+        if (coolDown.coolDownState == PlayerFSM.instance.curCoolDownState)
+        {
+            //콘텐츠 재생
+            //TV를 다 보면 보상 및 CoolTime 체크
+            PlayerFSM.instance.TurnObj();
+            WatchReward();
+            StartCoroutine(CheckCoolTime(coolDown.coolTime));
+        }
     }
 
     //CoolTime 체크함수

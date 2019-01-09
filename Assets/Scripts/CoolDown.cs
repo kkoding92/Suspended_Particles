@@ -11,6 +11,7 @@ public enum CoolDownState
     DrinkCoolTime,
     GrowTime,
     PortalTime,
+    None
 }
 
 [System.Serializable]

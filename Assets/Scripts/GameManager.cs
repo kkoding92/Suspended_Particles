@@ -66,6 +66,8 @@ public class GameManager : MonoBehaviour
     private bool isSleeping = false;
 
     public int Coin { get => coin; set => coin = value; }
+    public int Coin1 { get => coin; set => coin = value; }
+    public float FineDustLevel { get => fineDustLevel; set => fineDustLevel = value; }
 
     void Start()
     {

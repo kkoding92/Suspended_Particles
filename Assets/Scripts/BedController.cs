@@ -17,6 +17,7 @@ public class BedController : ViewController
     {
         AlertViewController.OnEvent += OnEvent;
         AlertViewController.OffEvent += OffEvent;
+        PlayerFSM.Arrive += Arrive;
 
         coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
@@ -45,7 +46,7 @@ public class BedController : ViewController
                 okButtonDelegate = () =>
                 {
                     //ok시 보여줄 콘텐츠 재생
-                    ShowAnim();
+                    PlayerFSM.instance.SetDestination(coolDown.coolDownState);
                 },
             });
         }
@@ -56,24 +57,28 @@ public class BedController : ViewController
         }
     }
 
-    //침대까지 걷기 애니메이션 재생함수
-    private void ShowAnim()
+    public void Arrive()
     {
-        GoToSleep();
+        if (coolDown.coolDownState == PlayerFSM.instance.curCoolDownState)
+        {
+            //잠자는 로직 처리
+            coolDown.isSleeping = true;
+            Sleep();
+            PlayerFSM.instance.character.SetActive(false);
+            PlayerFSM.instance.sleepChar[0].SetActive(false);
+            PlayerFSM.instance.sleepChar[1].SetActive(true);
+            StartCoroutine(SleepTimeCheck(sleepTime));
+        }
     }
 
-    //잠자는 처리 함수
-    private void GoToSleep()
-    {
-        coolDown.isSleeping = true;
-        Sleep();
-        StartCoroutine(SleepTimeCheck(sleepTime));
-    }
-
+    //일어났을 때 처리
     private void WakeUp()
     {
-        //TV를 다 보면 보상 및 CoolTime 체크
+        PlayerFSM.instance.TurnObj();
         coolDown.isSleeping = false;
+        PlayerFSM.instance.character.SetActive(true);
+        PlayerFSM.instance.sleepChar[0].SetActive(true);
+        PlayerFSM.instance.sleepChar[1].SetActive(false);
         SleepReward();
         StartCoroutine(CheckCoolTime(coolDown.coolTime));
     }
