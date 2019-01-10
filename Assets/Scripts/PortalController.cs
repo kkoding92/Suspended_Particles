@@ -41,7 +41,7 @@ public class PortalController : MonoBehaviour
                 okButtonTitle = "출발",
                 okButtonDelegate = () =>
                 {
-                    CheckDestination();
+                    StartCoroutine(CheckDestination());
                 },
             });
         }
@@ -52,8 +52,9 @@ public class PortalController : MonoBehaviour
         }
     }
 
-    private void CheckDestination()
+    IEnumerator CheckDestination()
     {
+        yield return new WaitForSeconds(.1f);
         message = "이동하고자 하는 장소를 입력하세요";
         AlertViewController.Show(title, message, new AlertViewOptions
         {

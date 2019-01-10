@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/radar test.unity
+    guid: 9ea9a7563d9f0de43816844602c0b412
   m_configObjects: {}
