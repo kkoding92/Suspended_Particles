@@ -5,6 +5,7 @@ using UnityEngine;
 public enum MaskState { basic=0, KF80, KF94, KF99 }
 public enum PalmState { None=0, Level1, Level2, Level3 }
 public enum StuckyiState { None=0, Level1, Level2 }
+public enum GameLevel { Default=0, Easy, Normal, Hard }
 
 public class GameManager : MonoBehaviour
 {
@@ -32,6 +33,10 @@ public class GameManager : MonoBehaviour
     //특정 코인 증가시간 
     [SerializeField] private float coinCheckTime = 15;
 
+    //게임 난이도를 설정 할 미세먼지 등급  
+    [HideInInspector] public GameLevel gameLevel;
+    //AR게임 중인지 체크 
+    [HideInInspector] public bool isGamming;
     //야자수 상태
     [HideInInspector] public PalmState palmState = PalmState.None;
     //야자수 자라는 조건
@@ -43,7 +48,7 @@ public class GameManager : MonoBehaviour
     //차량2부제 스킬 갯수
     [HideInInspector] public int carSkillCount;
     //바람 스킬 갯수
-    [HideInInspector] public int windSkillCount;
+    [HideInInspector] public int treeSkillCount;
     //비 스킬 갯수
     [HideInInspector] public int rainSkillCount;
     //클렌징 보유 여부
@@ -68,6 +73,7 @@ public class GameManager : MonoBehaviour
     public int Coin { get => coin; set => coin = value; }
     public int Coin1 { get => coin; set => coin = value; }
     public float FineDustLevel { get => fineDustLevel; set => fineDustLevel = value; }
+    public int StayTime { get => stayTime; set => stayTime = value; }
 
     void Start()
     {
@@ -84,6 +90,8 @@ public class GameManager : MonoBehaviour
 
         cleansingObj.SetActive(false);
         airCleanerObj.SetActive(false);
+
+        isGamming = false;
 
         StartCoroutine(IncreseFineDustLevel());
         StartCoroutine(IncreseCoin());
@@ -209,8 +217,8 @@ public class GameManager : MonoBehaviour
             case Skill_Item.rain:
                 rainSkillCount++;
                 break;
-            case Skill_Item.wind:
-                windSkillCount++;
+            case Skill_Item.tree:
+                treeSkillCount++;
                 break;
         }
         coin -= price;
@@ -254,7 +262,7 @@ public class GameManager : MonoBehaviour
     IEnumerator IncreseFineDustLevel()
     {
         while (true) {
-            if (!isSleeping)
+            if (!isSleeping && !isGamming)
             {
                 if (isOpen)
                 {

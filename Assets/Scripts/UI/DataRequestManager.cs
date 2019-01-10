@@ -50,6 +50,7 @@ public class Data
 
 public class DataRequestManager : MonoBehaviour
 {
+    public GameManager gm;
     public GameObject inforPanel;
     public GameObject dataPanel;
     public Text inforText;
@@ -73,6 +74,7 @@ public class DataRequestManager : MonoBehaviour
         clickCount = 0;
         count = 0;
         inforText.text = "외부 미세먼지 정보";
+        gm.gameLevel = GameLevel.Default;
         StartCoroutine(RequestData());
     }
 
@@ -107,13 +109,25 @@ public class DataRequestManager : MonoBehaviour
         Form form = JsonUtility.FromJson<Form>(receiveData);
 
         if (form.list[2].pm10Grade1h.Equals("1"))
+        {
             pm10Grade1H = "좋음";
+            gm.gameLevel = GameLevel.Easy;
+        }
         else if (form.list[2].pm10Grade1h.Equals("2"))
+        {
             pm10Grade1H = "보통";
+            gm.gameLevel = GameLevel.Normal;
+        }
         else if (form.list[2].pm10Grade1h.Equals("3"))
+        {
             pm10Grade1H = "나쁨";
+            gm.gameLevel = GameLevel.Hard;
+        }
         else if (form.list[2].pm10Grade1h.Equals("4"))
+        {
             pm10Grade1H = "매우나쁨";
+            gm.gameLevel = GameLevel.Hard;
+        }
 
         if (form.list[2].pm25Grade1h.Equals("1"))
             pm25Grade1H = "좋음";

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Skill_Item { car=0, wind, rain };
+public enum Skill_Item { car=0, tree, rain };
 
 [System.Serializable]
 public class Skill
@@ -49,8 +49,8 @@ public class SkillController : MonoBehaviour
                     AlertViewController.Show(skill.title, message);
                 }
                 break;
-            case Skill_Item.wind:
-                if (gm.windSkillCount == 0)
+            case Skill_Item.tree:
+                if (gm.treeSkillCount == 0)
                 {
                     message = "전체 미세먼지의 20%를 감소시켜 줍니다. 구매 하시겠습니까?";
                     CallAlertView();
