@@ -65,6 +65,7 @@ public class StoreController : MonoBehaviour
                 else
                 {
                     message = "미세먼지와 기타 유해물질을 걸러줍니다. 구매 하시겠습니까?";
+                    previewObj.SetActive(true);
                     CallStoreAlertView();
                 }
                 break;
@@ -77,6 +78,7 @@ public class StoreController : MonoBehaviour
                 else
                 {
                     message = "미세먼지를 효과적으로 씻어줍니다. 구매 하시겠습니까?";
+                    previewObj.SetActive(true);
                     CallStoreAlertView();
                 }
                 break;
@@ -89,6 +91,7 @@ public class StoreController : MonoBehaviour
                 else
                 {
                     message = "미세먼지를 걸러주고 키우는 재미가 있는 식물입니다. 구매 하시겠습니까?";
+                    previewObj.SetActive(true);
                     CallStoreAlertView();
                 }
                 break;
@@ -101,11 +104,13 @@ public class StoreController : MonoBehaviour
                 else
                 {
                     message = "미세먼지를 걸러주고 키우는 재미가 있는 식물입니다. 구매 하시겠습니까?";
+                    previewObj.SetActive(true);
                     CallStoreAlertView();
                 }
                 break;
             case Item.SkillBook:
                 message = "밖에서 쓸수 있는 스킬이 담겨있습니다. 구경하시겠습니까?";
+                previewObj.SetActive(true);
                 StoreAlertViewController.Show(storeItem.title, message, new StoreAlertViewOptions
                 {
                     cancelButtonTitle = "아니요",
@@ -124,6 +129,7 @@ public class StoreController : MonoBehaviour
                 if (gm.maskState == MaskState.basic)
                 {
                     message = "미세먼지를 막아줘 밖에서 더 오래 있을 수 있습니다. 업그레이드 하겠습니까?";
+                    previewObj.SetActive(true);
                     CallStoreAlertView();
                 }
                 else
@@ -136,6 +142,7 @@ public class StoreController : MonoBehaviour
                 if (gm.maskState == MaskState.KF80)
                 {
                     message = "미세먼지를 막아줘 밖에서 더 오래 있을 수 있습니다. 업그레이드 하겠습니까?";
+                    previewObj.SetActive(true);
                     CallStoreAlertView();
                 }
                 else
@@ -148,6 +155,7 @@ public class StoreController : MonoBehaviour
                 if (gm.maskState == MaskState.KF94)
                 {
                     message = "미세먼지를 막아줘 밖에서 더 오래 있을 수 있습니다. 업그레이드 하겠습니까?";
+                    previewObj.SetActive(true);
                     CallStoreAlertView();
                 }
                 else
@@ -163,7 +171,7 @@ public class StoreController : MonoBehaviour
     {
         isEvent = true;
         UICam.SetActive(true);
-        previewObj.SetActive(true);
+        
     }
 
     public void OffEvent()

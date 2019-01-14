@@ -5,16 +5,26 @@ using UnityEngine;
 public class PortalController : MonoBehaviour
 {
     public CoolDown coolDown;
+
+    public GameObject[] shopObj;
+    public GameObject[] earthObj;
+    public GameObject[] gameUI;
+
+    public Animator anim;
+
     private string title;
     private string message;
 
     private void Start()
     {
+        anim.enabled = false;
         BedController.Sleep += Sleep;
         BedController.SleepReward += SleepReward;
         AlertViewController.OnEvent += OnEvent;
         AlertViewController.OffEvent += OffEvent;
 
+        shopObj[0].SetActive(false);
+        earthObj[0].SetActive(false);
         coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
         title = "알림";
@@ -62,14 +72,39 @@ public class PortalController : MonoBehaviour
             cancelButtonTitle = "지구",
             cancelButtonDelegate = () =>
             {
+                gameUI[0].SetActive(false);
+                gameUI[1].SetActive(false);
+                shopObj[0].SetActive(false);
+                earthObj[0].SetActive(true);
+                earthObj[2].SetActive(true);
+                earthObj[4].SetActive(true);
+                StartCoroutine(StartARGame());
+
+                anim.enabled = true;
             },
 
             //OK 버튼의 타이틀과 버튼을 눌렀을 때 실행되는 델리게이트를 설정한다.
             okButtonTitle = "상점",
             okButtonDelegate = () =>
             {
+                gameUI[0].SetActive(false);
+                gameUI[1].SetActive(false);
+                shopObj[0].SetActive(true);
+                shopObj[1].SetActive(true);
+                shopObj[2].SetActive(true);
+                earthObj[0].SetActive(false);
+                earthObj[1].SetActive(false);
+
+                anim.enabled = true;
             },
         });
+    }
+
+    IEnumerator StartARGame()
+    {
+        yield return new WaitForSeconds(10f);
+        earthObj[1].SetActive(true);
+        earthObj[3].SetActive(true);
     }
 
     //CoolTime 체크함수

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Skill_Item { car=0, tree, rain };
+public enum Skill_Item { car = 0, tree, rain };
 
 [System.Serializable]
 public class Skill
@@ -16,7 +16,9 @@ public class SkillController : MonoBehaviour
 {
     public Skill skill;
     public GameManager gm;
+
     public delegate void SkillRewardEvent(Skill_Item item, int price);
+
     public static event SkillRewardEvent SkillReward;
 
     private string message;
@@ -26,7 +28,7 @@ public class SkillController : MonoBehaviour
         switch (skill.skill_item)
         {
             case Skill_Item.car:
-                if(gm.carSkillCount == 0)
+                if (gm.carSkillCount == 0)
                 {
                     message = "전체 미세먼지의 20%를 감소시켜 줍니다. 구매 하시겠습니까?";
                     CallAlertView();
@@ -37,6 +39,7 @@ public class SkillController : MonoBehaviour
                     AlertViewController.Show(skill.title, message);
                 }
                 break;
+
             case Skill_Item.rain:
                 if (gm.rainSkillCount == 0)
                 {
@@ -49,6 +52,7 @@ public class SkillController : MonoBehaviour
                     AlertViewController.Show(skill.title, message);
                 }
                 break;
+
             case Skill_Item.tree:
                 if (gm.treeSkillCount == 0)
                 {

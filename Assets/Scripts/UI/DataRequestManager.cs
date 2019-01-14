@@ -52,10 +52,12 @@ public class DataRequestManager : MonoBehaviour
 {
     public GameManager gm;
     public GameObject inforPanel;
-    public GameObject dataPanel;
-    public Text inforText;
-    public Text dataText1;
-    public Text dataText2;
+    public Image misePanel;
+    public Image choPanel;
+    public Sprite[] miseSprite;
+    public Sprite[] choSprite;
+    public Text miseTxt;
+    public Text choTxt;
 
     private string pm10Grade1H;
     private string pm25Grade1H;
@@ -63,22 +65,18 @@ public class DataRequestManager : MonoBehaviour
     private string pm25Value;
 
     private int count;
-    private int clickCount = 0;
     private bool isSetData;
 
-    void Start()
+    private void Start()
     {
-        inforPanel.SetActive(true);
-        dataPanel.SetActive(false);
+        inforPanel.SetActive(false);
         isSetData = false;
-        clickCount = 0;
         count = 0;
-        inforText.text = "외부 미세먼지 정보";
         gm.gameLevel = GameLevel.Default;
         StartCoroutine(RequestData());
     }
 
-    IEnumerator RequestData()
+    private IEnumerator RequestData()
     {
         UnityWebRequest www = UnityWebRequest.Get("http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=경기&pageNo=1&numOfRows=10&ServiceKey=zLp2tLOTP9bJF2vIfVzdf%2Bdj0loKSEqd2sO8mwCgIaEVplrCzarGyK%2FPA%2BNG8BcIxAGuR4z9aeVFiwmERpMawg%3D%3D&ver=1.3&_returnType=json");
 
@@ -110,73 +108,61 @@ public class DataRequestManager : MonoBehaviour
 
         if (form.list[2].pm10Grade1h.Equals("1"))
         {
-            pm10Grade1H = "좋음";
             gm.gameLevel = GameLevel.Easy;
+            misePanel.sprite = miseSprite[0];
         }
         else if (form.list[2].pm10Grade1h.Equals("2"))
         {
-            pm10Grade1H = "보통";
             gm.gameLevel = GameLevel.Normal;
+            misePanel.sprite = miseSprite[1];
         }
         else if (form.list[2].pm10Grade1h.Equals("3"))
         {
-            pm10Grade1H = "나쁨";
             gm.gameLevel = GameLevel.Hard;
+            misePanel.sprite = miseSprite[2];
         }
         else if (form.list[2].pm10Grade1h.Equals("4"))
         {
-            pm10Grade1H = "매우나쁨";
             gm.gameLevel = GameLevel.Hard;
+            misePanel.sprite = miseSprite[3];
         }
 
         if (form.list[2].pm25Grade1h.Equals("1"))
-            pm25Grade1H = "좋음";
+        {
+            choPanel.sprite = choSprite[0];
+        }
         else if (form.list[2].pm25Grade1h.Equals("2"))
-            pm25Grade1H = "보통";
+        {
+            choPanel.sprite = choSprite[1];
+        }
         else if (form.list[2].pm25Grade1h.Equals("3"))
-            pm25Grade1H = "나쁨";
+        {
+            choPanel.sprite = choSprite[2];
+        }
         else if (form.list[2].pm25Grade1h.Equals("4"))
-            pm25Grade1H = "매우나쁨";
+        {
+            choPanel.sprite = choSprite[3];
+        }
 
         pm10Value = form.list[2].pm10Value;
         pm25Value = form.list[2].pm25Value;
+
+        miseTxt.text = pm10Value;
+        choTxt.text = pm25Value;
     }
 
     public void OnMouseDown()
     {
-        if(clickCount == 0)
-        {
-            inforPanel.SetActive(false);
-            dataPanel.SetActive(true);
+        inforPanel.SetActive(true);
 
-            dataText1.text = "미세먼지 등급";
-            dataText2.text = pm10Grade1H;
+        StartCoroutine(OffPanel());
+    }
 
-            clickCount++;
-        }
-        else if (clickCount == 1)
-        {
-            dataText1.text = "초미세먼지 등급";
-            dataText2.text = pm25Grade1H;
-            clickCount++;
-        }
-        else if (clickCount == 2)
-        {
-            dataText1.text = "미세먼지 수치";
-            dataText2.text = pm10Value;
-            clickCount++;
-        }
-        else if(clickCount == 3)
-        {
-            dataText1.text = "초미세먼지 수치";
-            dataText2.text = pm25Value;
-            clickCount++;
-        }
-        else if (clickCount == 4)
-        {
-            inforPanel.SetActive(true);
-            dataPanel.SetActive(false);
-            clickCount = 0;
-        }
+    private IEnumerator OffPanel()
+    {
+        yield return new WaitForSeconds(5f);
+        inforPanel.SetActive(false);
+
+        yield return StartCoroutine(RequestData());
     }
 }

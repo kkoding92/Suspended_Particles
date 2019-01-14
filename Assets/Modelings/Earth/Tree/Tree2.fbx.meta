@@ -1,0 +1,251 @@
+fileFormatVersion: 2
+guid: 1346ba7e5b74f8844a1a0653a1cbbb82
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Null
+    100002: //RootNode
+    100004: tree_1_0
+    100006: tree_1_1
+    100008: tree_1_10
+    100010: tree_1_11
+    100012: tree_1_12
+    100014: tree_1_13
+    100016: tree_1_14
+    100018: tree_1_15
+    100020: tree_1_16
+    100022: tree_1_17
+    100024: tree_1_18
+    100026: tree_1_19
+    100028: tree_1_2
+    100030: tree_1_20
+    100032: tree_1_21
+    100034: tree_1_22
+    100036: tree_1_23
+    100038: tree_1_24
+    100040: tree_1_25
+    100042: tree_1_26
+    100044: tree_1_27
+    100046: tree_1_28
+    100048: tree_1_29
+    100050: tree_1_3
+    100052: tree_1_4
+    100054: tree_1_5
+    100056: tree_1_6
+    100058: tree_1_7
+    100060: tree_1_8
+    100062: Tree_Cloner
+    400000: Null
+    400002: //RootNode
+    400004: tree_1_0
+    400006: tree_1_1
+    400008: tree_1_10
+    400010: tree_1_11
+    400012: tree_1_12
+    400014: tree_1_13
+    400016: tree_1_14
+    400018: tree_1_15
+    400020: tree_1_16
+    400022: tree_1_17
+    400024: tree_1_18
+    400026: tree_1_19
+    400028: tree_1_2
+    400030: tree_1_20
+    400032: tree_1_21
+    400034: tree_1_22
+    400036: tree_1_23
+    400038: tree_1_24
+    400040: tree_1_25
+    400042: tree_1_26
+    400044: tree_1_27
+    400046: tree_1_28
+    400048: tree_1_29
+    400050: tree_1_3
+    400052: tree_1_4
+    400054: tree_1_5
+    400056: tree_1_6
+    400058: tree_1_7
+    400060: tree_1_8
+    400062: Tree_Cloner
+    2100000: tree.1 29
+    2300000: tree_1_0
+    2300002: tree_1_1
+    2300004: tree_1_10
+    2300006: tree_1_11
+    2300008: tree_1_12
+    2300010: tree_1_13
+    2300012: tree_1_14
+    2300014: tree_1_15
+    2300016: tree_1_16
+    2300018: tree_1_17
+    2300020: tree_1_18
+    2300022: tree_1_19
+    2300024: tree_1_2
+    2300026: tree_1_20
+    2300028: tree_1_21
+    2300030: tree_1_22
+    2300032: tree_1_23
+    2300034: tree_1_24
+    2300036: tree_1_25
+    2300038: tree_1_26
+    2300040: tree_1_27
+    2300042: tree_1_28
+    2300044: tree_1_29
+    2300046: tree_1_3
+    2300048: tree_1_4
+    2300050: tree_1_5
+    2300052: tree_1_6
+    2300054: tree_1_7
+    2300056: tree_1_8
+    3300000: tree_1_0
+    3300002: tree_1_1
+    3300004: tree_1_10
+    3300006: tree_1_11
+    3300008: tree_1_12
+    3300010: tree_1_13
+    3300012: tree_1_14
+    3300014: tree_1_15
+    3300016: tree_1_16
+    3300018: tree_1_17
+    3300020: tree_1_18
+    3300022: tree_1_19
+    3300024: tree_1_2
+    3300026: tree_1_20
+    3300028: tree_1_21
+    3300030: tree_1_22
+    3300032: tree_1_23
+    3300034: tree_1_24
+    3300036: tree_1_25
+    3300038: tree_1_26
+    3300040: tree_1_27
+    3300042: tree_1_28
+    3300044: tree_1_29
+    3300046: tree_1_3
+    3300048: tree_1_4
+    3300050: tree_1_5
+    3300052: tree_1_6
+    3300054: tree_1_7
+    3300056: tree_1_8
+    4300000: tree_1_0
+    4300002: tree_1_1
+    4300004: tree_1_2
+    4300006: tree_1_3
+    4300008: tree_1_4
+    4300010: tree_1_5
+    4300012: tree_1_6
+    4300014: tree_1_7
+    4300016: tree_1_8
+    4300018: tree_1_10
+    4300020: tree_1_11
+    4300022: tree_1_12
+    4300024: tree_1_13
+    4300026: tree_1_14
+    4300028: tree_1_15
+    4300030: tree_1_16
+    4300032: tree_1_17
+    4300034: tree_1_18
+    4300036: tree_1_19
+    4300038: tree_1_20
+    4300040: tree_1_21
+    4300042: tree_1_22
+    4300044: tree_1_23
+    4300046: tree_1_24
+    4300048: tree_1_25
+    4300050: tree_1_26
+    4300052: tree_1_27
+    4300054: tree_1_28
+    4300056: tree_1_29
+    7400000: CINEMA_4D_Main
+    9500000: //RootNode
+    11100000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tree.1 29
+    second: {fileID: 2100000, guid: 5ada448d7080ae44996ffa1b74cb7979, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

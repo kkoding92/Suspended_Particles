@@ -1,14 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TVController : ViewController
 {
     public CoolDown coolDown;
+    public GameObject TVPanel;
+    public Sprite[] tvView;
+    public Image tv;
+
     private string title;
+
     private string message;
 
     public delegate void RewardEvent();
+
     public static event RewardEvent WatchReward;
 
     private void Start()
@@ -22,6 +29,7 @@ public class TVController : ViewController
         coolDown.isAlertView = false;
         coolDown.isCoolTime = true;
         title = "알림";
+        TVPanel.SetActive(false);
     }
 
     private void OnMouseDown()
@@ -60,6 +68,7 @@ public class TVController : ViewController
     {
         if (coolDown.coolDownState == PlayerFSM.instance.curCoolDownState)
         {
+            StartCoroutine(PlayTV());
             //콘텐츠 재생
             //TV를 다 보면 보상 및 CoolTime 체크
             PlayerFSM.instance.TurnObj();
@@ -68,8 +77,28 @@ public class TVController : ViewController
         }
     }
 
+    private IEnumerator PlayTV()
+    {
+        TVPanel.SetActive(true);
+
+        int ran = Random.Range(0, 4);
+        if (ran == 0)
+            tv.sprite = tvView[0];
+        else if (ran == 1)
+            tv.sprite = tvView[1];
+        else if (ran == 2)
+            tv.sprite = tvView[2];
+
+        yield return new WaitForSeconds(5f);
+
+        PlayerFSM.instance.TurnObj();
+        WatchReward();
+        TVPanel.SetActive(false);
+        yield return StartCoroutine(CheckCoolTime(coolDown.coolTime));
+    }
+
     //CoolTime 체크함수
-    IEnumerator CheckCoolTime(float time)
+    private IEnumerator CheckCoolTime(float time)
     {
         coolDown.isCoolTime = false;
         yield return new WaitForSeconds(time);
